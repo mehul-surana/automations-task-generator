@@ -7,7 +7,12 @@ This script demonstrates how to use the task automation integration
 import asyncio
 import json
 import sys
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Import the integration
 from task_automation_integration import TaskAutomationIntegration
@@ -300,10 +305,14 @@ async def main():
             print(f"  • {task['title']}")
         return
     
-    # Get credentials
-    print("\n🔐 CB Workspace Credentials Required")
-    cb_email = input("Enter CB Workspace email: ").strip()
-    cb_password = input("Enter CB Workspace password: ").strip()
+    # Get credentials from environment or prompt user
+    cb_email = os.getenv('CREATEBYTES_EMAIL')
+    cb_password = os.getenv('CREATEBYTES_PASSWORD')
+    
+    if not cb_email or not cb_password:
+        print("\n🔐 CB Workspace Credentials Required")
+        cb_email = input("Enter CB Workspace email: ").strip()
+        cb_password = input("Enter CB Workspace password: ").strip()
     
     if not cb_email or not cb_password:
         print("❌ Email and password are required")
