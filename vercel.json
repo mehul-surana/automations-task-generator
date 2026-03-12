@@ -1,0 +1,1 @@
+{"version": 2, "builds": [{"src": "web_server.py", "use": "@vercel/python"}], "routes": [{"src": "/(.*)", "dest": "web_server.py"}], "env": {"PYTHON_VERSION": "3.9"}}
