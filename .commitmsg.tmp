@@ -1,9 +1,0 @@
-Scrub hardcoded credentials and prepare for open source
-
-- Replace real Jira project key, board ID, API token, and email with placeholders
-- Replace real CB Workspace password, project ID, and email with placeholders
-- Move all hardcoded defaults in Python code to environment variables
-- Add SECURITY.md with vulnerability reporting and credential handling guidelines
-- Harden .gitignore (add .env.production, *.pem, secrets/)
-- Convert deploy.yml to use GitHub Actions secrets exclusively
-- Add security notice to README
