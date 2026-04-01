@@ -71,15 +71,15 @@ https://mehul-surana.github.io/automations-task-generator/
 6. **Add environment variables** (Settings → Config Vars):
    ```
    JIRA_BASE_URL=https://your-site.atlassian.net/
-   JIRA_USER_EMAIL=your-email@example.com
-   JIRA_API_TOKEN=<your-jira-api-token>
+   JIRA_USER_EMAIL=your-atlassian-email@example.com
+   JIRA_API_TOKEN=<your-atlassian-api-token>
    JIRA_PROJECT_KEY=YOUR_PROJECT_KEY
    JIRA_BOARD_ID=22
-   JIRA_SPRINT_NAME=Student Feb
+   JIRA_SPRINT_NAME=Your Sprint Name
    CREATEBYTES_WORKSPACE_URL=https://cb.workspace.createbytes.com
-   CREATEBYTES_EMAIL=your-email@example.com
-   CREATEBYTES_PASSWORD=<your-cb-password>
-   CREATEBYTES_PROJECT_ID=your-cb-project-uuid
+   CREATEBYTES_EMAIL=your-cb-email@example.com
+   CREATEBYTES_PASSWORD=<your-cb-workspace-password>
+   CREATEBYTES_PROJECT_ID=<your-cb-project-uuid>
    LOG_LEVEL=INFO
    ```
 
@@ -207,8 +207,8 @@ heroku buildpacks:add heroku/python
 
 # 5. Set environment variables
 heroku config:set JIRA_BASE_URL=https://your-site.atlassian.net/
-heroku config:set JIRA_USER_EMAIL=your-email@example.com
-# ... (add all env vars)
+heroku config:set JIRA_USER_EMAIL=your-atlassian-email@example.com
+# ... (add all env vars; use `heroku config:set KEY=value` for each)
 
 # 6. Deploy
 git push heroku main

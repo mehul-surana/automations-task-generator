@@ -60,12 +60,12 @@ def get_status():
     return jsonify({
         'status': 'ready',
         'jira': {
-            'project_key': os.getenv('JIRA_PROJECT_KEY', 'YOUR_PROJECT_KEY'),
-            'board_id': os.getenv('JIRA_BOARD_ID', '22'),
-            'url': os.getenv('JIRA_BASE_URL', 'https://your-site.atlassian.net'),
+            'project_key': os.getenv('JIRA_PROJECT_KEY', ''),
+            'board_id': os.getenv('JIRA_BOARD_ID', ''),
+            'url': os.getenv('JIRA_BASE_URL', 'https://your-domain.atlassian.net'),
         },
         'createbytes': {
-            'project_id': os.getenv('CREATEBYTES_PROJECT_ID', 'your-cb-project-uuid'),
+            'project_id': os.getenv('CREATEBYTES_PROJECT_ID', ''),
             'url': os.getenv('CREATEBYTES_WORKSPACE_URL', 'https://cb.workspace.createbytes.com'),
         },
         'initialized': integration is not None
@@ -89,7 +89,7 @@ def create_tasks():
             Task(
                 title=t.get('title', ''),
                 description=t.get('description', ''),
-                assignee=t.get('assignee', 'Mehul'),
+                assignee=t.get('assignee', ''),
                 priority=t.get('priority', 'Medium'),
                 labels=t.get('labels', [])
             )

@@ -18,7 +18,7 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: automations-task-generator
-          heroku_email: your-email@example.com
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
           buildpack: python
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,13 +30,13 @@ jobs:
             -H "Authorization: Bearer ${{secrets.HEROKU_API_KEY}}" \
             -H "Content-Type: application/json" \
             -d '{
-              "JIRA_BASE_URL": "https://your-site.atlassian.net/",
+              "JIRA_BASE_URL": "${{secrets.JIRA_BASE_URL}}",
               "JIRA_USER_EMAIL": "${{secrets.JIRA_USER_EMAIL}}",
               "JIRA_API_TOKEN": "${{secrets.JIRA_API_TOKEN}}",
-              "JIRA_PROJECT_KEY": "YOUR_PROJECT_KEY",
-              "JIRA_BOARD_ID": "22",
-              "CREATEBYTES_WORKSPACE_URL": "https://cb.workspace.createbytes.com",
+              "JIRA_PROJECT_KEY": "${{secrets.JIRA_PROJECT_KEY}}",
+              "JIRA_BOARD_ID": "${{secrets.JIRA_BOARD_ID}}",
+              "CREATEBYTES_WORKSPACE_URL": "${{secrets.CREATEBYTES_WORKSPACE_URL}}",
               "CREATEBYTES_EMAIL": "${{secrets.CREATEBYTES_EMAIL}}",
               "CREATEBYTES_PASSWORD": "${{secrets.CREATEBYTES_PASSWORD}}",
-              "CREATEBYTES_PROJECT_ID": "your-cb-project-uuid"
+              "CREATEBYTES_PROJECT_ID": "${{secrets.CREATEBYTES_PROJECT_ID}}"
             }'

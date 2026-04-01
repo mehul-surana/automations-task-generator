@@ -8,6 +8,7 @@ Uses Playwright for CB Workspace automation
 import asyncio
 import json
 import logging
+import os
 from typing import List, Dict, Optional
 from task_automation_orchestrator import TaskAutomationOrchestrator, Task
 from createbytes_automation import CreateBytesAutomation
@@ -75,16 +76,18 @@ class TaskAutomationIntegration:
             Results dictionary
         """
         
-        # Default configurations
+        # Default configurations (from environment if not passed)
         if jira_config is None:
+            _board = os.getenv("JIRA_BOARD_ID", "").strip()
             jira_config = {
-                'project_key': 'YOUR_PROJECT_KEY',
-                'board_id': 22
+                "project_key": os.getenv("JIRA_PROJECT_KEY", ""),
+                "board_id": int(_board) if _board.isdigit() else 0,
             }
         
         if cb_config is None:
             cb_config = {
-                'project_id': 'your-cb-project-uuid'
+                "project_id": os.getenv("CREATEBYTES_PROJECT_ID")
+                or os.getenv("CB_PROJECT_ID", ""),
             }
         
         # Initialize CB Workspace if needed
@@ -106,7 +109,7 @@ class TaskAutomationIntegration:
                 Task(
                     title=task.get('title', ''),
                     description=task.get('description', ''),
-                    assignee=task.get('assignee', 'Mehul'),
+                    assignee=task.get('assignee', ''),
                     priority=task.get('priority', 'Medium'),
                     labels=task.get('labels', [])
                 )
@@ -122,9 +125,9 @@ class TaskAutomationIntegration:
             # Execute bulk creation
             results = await self.orchestrator.create_task_bulk(
                 tasks=tasks,
-                jira_project_key=jira_config.get('project_key', 'YOUR_PROJECT_KEY'),
-                jira_board_id=jira_config.get('board_id', 22),
-                cb_project_id=cb_config.get('project_id', 'your-cb-project-uuid'),
+                jira_project_key=jira_config.get('project_key', ''),
+                jira_board_id=int(jira_config.get('board_id') or 0),
+                cb_project_id=cb_config.get('project_id', ''),
                 sync_to_jira=sync_to_jira,
                 sync_to_cb=sync_to_cb
             )

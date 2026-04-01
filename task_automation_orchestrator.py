@@ -22,7 +22,7 @@ class Task:
     """Represents a task to be created"""
     title: str
     description: str = ""
-    assignee: str = "Mehul"
+    assignee: str = ""
     priority: str = "Medium"
     labels: List[str] = None
     
@@ -65,9 +65,9 @@ class TaskAutomationOrchestrator:
     async def create_task_bulk(
         self,
         tasks: List[Task],
-        jira_project_key: str = "YOUR_PROJECT_KEY",
-        jira_board_id: int = 22,
-        cb_project_id: str = "your-cb-project-uuid",
+        jira_project_key: str = "",
+        jira_board_id: int = 0,
+        cb_project_id: str = "",
         sync_to_jira: bool = True,
         sync_to_cb: bool = True
     ) -> Dict:
@@ -76,7 +76,7 @@ class TaskAutomationOrchestrator:
         
         Args:
             tasks: List of Task objects
-            jira_project_key: Jira project key (e.g., "YOUR_PROJECT_KEY")
+            jira_project_key: Jira project key (from env or caller)
             jira_board_id: Jira board ID
             cb_project_id: CreateBytes project ID
             sync_to_jira: Whether to sync to Jira

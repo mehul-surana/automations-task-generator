@@ -25,17 +25,17 @@ Search and select: `automations-task-generator`
 ### **Step 5: Add Environment Variables**
 Railway automatically detects `railway.json`
 
-Go to "Variables" tab and add:
+Go to "Variables" tab and add (use your real values; never commit secrets to git):
 ```
 JIRA_BASE_URL=https://your-site.atlassian.net/
-JIRA_USER_EMAIL=your-email@example.com
-JIRA_API_TOKEN=<your-jira-api-token>
+JIRA_USER_EMAIL=your-atlassian-email@example.com
+JIRA_API_TOKEN=<create at id.atlassian.com → API tokens>
 JIRA_PROJECT_KEY=YOUR_PROJECT_KEY
 JIRA_BOARD_ID=22
 CREATEBYTES_WORKSPACE_URL=https://cb.workspace.createbytes.com
-CREATEBYTES_EMAIL=your-email@example.com
-CREATEBYTES_PASSWORD=<your-cb-password>
-CREATEBYTES_PROJECT_ID=your-cb-project-uuid
+CREATEBYTES_EMAIL=your-cb-email@example.com
+CREATEBYTES_PASSWORD=<your-cb-workspace-password>
+CREATEBYTES_PROJECT_ID=<your-cb-project-uuid>
 LOG_LEVEL=INFO
 ```
 
@@ -83,16 +83,16 @@ Add: `heroku/python`
 Settings tab → "Config Vars"
 Click "Reveal Config Vars"
 
-Add all these:
+Add all these (replace placeholders with your secrets in the Heroku UI only):
 ```
 JIRA_BASE_URL = https://your-site.atlassian.net/
-JIRA_USER_EMAIL = your-email@example.com
+JIRA_USER_EMAIL = your-atlassian-email@example.com
 JIRA_API_TOKEN = <your-jira-api-token>
 JIRA_PROJECT_KEY = YOUR_PROJECT_KEY
 JIRA_BOARD_ID = 22
-CREATEBYTES_EMAIL = your-email@example.com
-CREATEBYTES_PASSWORD = <your-cb-password>
-CREATEBYTES_PROJECT_ID = your-cb-project-uuid
+CREATEBYTES_EMAIL = your-cb-email@example.com
+CREATEBYTES_PASSWORD = <your-cb-workspace-password>
+CREATEBYTES_PROJECT_ID = <your-cb-project-uuid>
 ```
 
 ### **Step 7: Deploy**
@@ -123,16 +123,21 @@ Every time you push to GitHub, it automatically deploys to Heroku!
 
 4. Add all credentials (same as above)
 
-5. Go to GitHub repo → Settings → Secrets
+5. Go to GitHub repo → Settings → Secrets and variables → Actions
 
-6. Add secrets:
+6. Add repository secrets (names must match what `.github/workflows/deploy.yml` expects):
    ```
-   HEROKU_API_KEY = [your Heroku API key]
-   HEROKU_EMAIL = your-email@example.com
-   JIRA_USER_EMAIL = your-email@example.com
-   JIRA_API_TOKEN = your-token
-   CREATEBYTES_EMAIL = your-email@example.com
-   CREATEBYTES_PASSWORD = your-password
+   HEROKU_API_KEY
+   HEROKU_EMAIL
+   JIRA_BASE_URL
+   JIRA_USER_EMAIL
+   JIRA_API_TOKEN
+   JIRA_PROJECT_KEY
+   JIRA_BOARD_ID
+   CREATEBYTES_WORKSPACE_URL
+   CREATEBYTES_EMAIL
+   CREATEBYTES_PASSWORD
+   CREATEBYTES_PROJECT_ID
    ```
 
 7. Go to GitHub repo → Actions

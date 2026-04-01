@@ -6,6 +6,10 @@ A powerful, production-ready automation tool that synchronizes bulk task creatio
 ![License MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Status Active](https://img.shields.io/badge/Status-Active-brightgreen.svg)
 
+## Security
+
+Use `.env` for secrets (never commit it). See [SECURITY.md](SECURITY.md) for how to report issues and handle credentials.
+
 ## ✨ Features
 
 - 🎯 **Bulk Task Creation** - Create 10-100+ tasks simultaneously across both platforms
@@ -81,15 +85,17 @@ cp .env.example .env
 nano .env
 ```
 
-Your `.env` file should contain:
+Your `.env` file should contain (see `.env.example` for the full list):
 ```env
 CB_WORKSPACE_EMAIL=your-email@example.com
 CB_WORKSPACE_PASSWORD=your-password
 CB_WORKSPACE_URL=https://cb.workspace.createbytes.com
 CB_PROJECT_ID=your-cb-project-uuid
+CREATEBYTES_PROJECT_ID=your-cb-project-uuid
 
-JIRA_PROJECT_KEY=YOUR_PROJECT_KEY
-JIRA_BOARD_ID=22
+JIRA_PROJECT_KEY=YOUR_JIRA_PROJECT_KEY
+JIRA_BOARD_ID=your-numeric-board-id
+JIRA_BASE_URL=https://your-domain.atlassian.net
 ```
 
 ### 4. Enable Atlassian Connector (Optional)
@@ -185,7 +191,7 @@ asyncio.run(main())
       "title": "Task Title",
       "description": "Optional task description",
       "priority": "High|Medium|Low",
-      "assignee": "Mehul",
+      "assignee": "Your Assignee Name",
       "labels": ["tag1", "tag2"]
     }
   ]
