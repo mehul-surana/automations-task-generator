@@ -4,3 +4,4 @@ python-dotenv>=1.0.0
 atlassian-python-api>=3.41.0
 flask>=2.3.0
 jira>=3.13.0
+gunicorn>=21.2.0

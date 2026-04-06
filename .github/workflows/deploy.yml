@@ -26,8 +26,9 @@ jobs:
       - name: Set Heroku config vars
         if: github.event_name == 'push'
         run: |
-          curl -X PATCH https://api.heroku.com/apps/automations-task-generator/config-vars \
+          curl -sS -f -X PATCH https://api.heroku.com/apps/automations-task-generator/config-vars \
             -H "Authorization: Bearer ${{secrets.HEROKU_API_KEY}}" \
+            -H "Accept: application/vnd.heroku+json; version=3" \
             -H "Content-Type: application/json" \
             -d '{
               "JIRA_BASE_URL": "${{secrets.JIRA_BASE_URL}}",

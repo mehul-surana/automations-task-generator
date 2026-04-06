@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Heroku Python buildpack runs this after pip install.
+set -euo pipefail
+echo "-----> Installing Playwright Chromium (required for CB Workspace automation)"
+python -m playwright install chromium

@@ -34,7 +34,7 @@ def init_integration():
     cb_password = os.getenv('CREATEBYTES_PASSWORD')
     
     if not cb_email or not cb_password:
-        logger.error("Missing CB Workspace credentials in .env file")
+        logger.error("Missing CREATEBYTES_EMAIL / CREATEBYTES_PASSWORD (set env vars or .env)")
         return False
     
     try:
@@ -143,18 +143,21 @@ def get_sample_tasks():
     ]
     return jsonify(sample_tasks)
 
+
+# Gunicorn imports this module without running __main__; Heroku needs integration
+# initialized in each worker process.
+if not init_integration():
+    logger.warning("Running in demo mode - integration may not work (set CREATEBYTES_* env vars)")
+
+
 if __name__ == '__main__':
-    # Initialize integration
-    if not init_integration():
-        logger.warning("Running in demo mode - integration may not work")
-    
-    # Run Flask server
-    print("\n" + "="*60)
+    port = int(os.environ.get("PORT", "5000"))
+    debug = os.environ.get("FLASK_DEBUG", "").lower() in ("1", "true", "yes")
+    print("\n" + "=" * 60)
     print("🚀 Task Automation Suite - Web UI")
-    print("="*60)
+    print("=" * 60)
     print("\n📍 Open your browser:")
-    print("   http://localhost:5000")
+    print(f"   http://localhost:{port}")
     print("\n✅ Ready to create tasks!")
-    print("="*60 + "\n")
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print("=" * 60 + "\n")
+    app.run(debug=debug, host="0.0.0.0", port=port)
