@@ -6,15 +6,24 @@ on:
       - main
   workflow_dispatch:
 
+# Heroku deploy action uses Node; opt into Node 24 before GitHub makes it default (avoids Node 20 deprecation noise).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
+      - uses: actions/checkout@v4
+
+      # ubuntu-latest does not ship Heroku CLI; akhileshns/heroku-deploy shells out to `heroku` (e.g. heroku create).
+      - name: Install Heroku CLI
+        if: github.event_name == 'push'
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Deploy to Heroku
         if: github.event_name == 'push'
-        uses: akhileshns/heroku-deploy@v3.13.15
+        uses: akhileshns/heroku-deploy@v3.14.15
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: automations-task-generator
